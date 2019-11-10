@@ -60,7 +60,7 @@ class Parser:
         with open(outfile, 'w+') as fp:
             for key in self.data:
                 self[key] # Materialize the JSON objects
-                writestr = ">"
+                writestr = ">" + key
                 # Remove the sequence from the dictionary
                 seq = self.data[key]["seq"] + "\n"
                 del self.data[key]["seq"]
@@ -71,6 +71,6 @@ class Parser:
 
                 writestr += self.delimiter
                 if len(self.data[key]) > 0:
-                    writestr += json.dumps(self.data[key]) + "\n"
+                    writestr += json.dumps(self.data[key], separators=(',',':')) + "\n"
                 fp.write(writestr)
                 fp.write(seq)
