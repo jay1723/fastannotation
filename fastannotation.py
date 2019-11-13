@@ -80,6 +80,13 @@ class Parser:
         """
         return len(self.data)
 
+
+    def keys(self):
+        """
+        Returns a list of keys that currently exist in the internal dictionary
+        """
+        return list(self.data)
+
     def write(self, outfile):
         """
         Write out the current Parser state to the provided output file. If edits have been made to the parser output they will be reflected in the written file.
