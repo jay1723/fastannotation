@@ -114,3 +114,40 @@ class Parser:
                     writestr += json.dumps(self.data[key], separators=(',',':')) + "\n"
                 fp.write(writestr)
                 fp.write(seq)
+
+    def keySet(self):
+        """
+        Return a list of all currently used annotation keys with type information associated with the key.
+        This is an expensive operation and should only be used when adding new annotation information to a file.
+
+        Input:
+            None
+        Output:
+            dictionary mapping keys to type information
+        """
+        keySet = {}
+        for element in self.data:
+            for key in self[element].keys():
+                if key not in keySet:
+                    keySet[key] = type(self[element][key]).__name__
+        return keySet
+
+    def findInstances(self, key, limit=-1):
+        """
+        Returns all values corresponding to a certain annotation key.
+
+        Input:
+            key: key you are looking for examples of
+            limit: <Optional> - default to returning all instances of a certain key's value.
+                    Otherwise return first "limit" number of values found.
+        Output:
+            list[obj] - List of values of unspecified type corresponding to the provided key. If empty no values were found.
+        """
+        values = []
+        for element in self.data:
+            if len(values) < limit or limit == -1:
+                if key in self[element]:
+                    values.append(self[element][key])
+            else:
+                return values
+        return values
