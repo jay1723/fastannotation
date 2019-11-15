@@ -115,7 +115,7 @@ class Parser:
                 fp.write(writestr)
                 fp.write(seq)
 
-    def keySet(self):
+    def keyDict(self):
         """
         Return a list of all currently used annotation keys with type information associated with the key.
         This is an expensive operation and should only be used when adding new annotation information to a file.
